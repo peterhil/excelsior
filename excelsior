@@ -143,7 +143,7 @@ Options:
     )
 
 
-if __name__ == '__main__':
+def main():
     try:
         args = docopt.docopt(__doc__)
     except docopt.DocoptExit as err:
@@ -163,3 +163,7 @@ if __name__ == '__main__':
 
     for excel_file in args['<excels>'] or map(lambda s: s.strip(), sys.stdin.readlines()):
         convert(excel_file, fmt, output)
+
+
+if __name__ == '__main__':
+    main()
