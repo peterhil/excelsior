@@ -1,7 +1,7 @@
 Excelsior
 =========
 
-Excellent is a conversion tool for Excel spreadsheets.
+Excelsior is a conversion tool for Excel spreadsheets.
 
 Uses [xlrd](http://www.python-excel.org/) for reading the Excel files, and thus supports the new [Open Office XML file format](https://en.wikipedia.org/wiki/Office_Open_XML) (.xlsx extension).
 
