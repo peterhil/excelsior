@@ -12,7 +12,7 @@ from __future__ import with_statement
 
 import sys
 
-from distutils.core import setup, Command
+from setuptools import setup
 from pip.req import parse_requirements
 
 
