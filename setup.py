@@ -17,7 +17,7 @@ from pip.req import parse_requirements
 
 
 PACKAGE_NAME = 'excelsior'
-PACKAGE_VERSION = '0.0.1'
+PACKAGE_VERSION = '0.0.2'
 PACKAGES = ['excelsior']
 INSTALL_REQS = [str(ir.req) for ir in parse_requirements('requirements.pip')]
 
