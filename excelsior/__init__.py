@@ -130,8 +130,8 @@ def convert(excel_file, fmt='tsv', output='print'):
 __doc__ = """{command}
 
 Usage:
-    {command} [-f fmt|--format=fmt] [-w|--write]
     {command} [-f fmt|--format=fmt] [-w|--write] <excels>...
+    {command} [-f fmt|--format=fmt] [-w|--write]
     {command} -h | --help
 
 Arguments:
@@ -140,7 +140,6 @@ Arguments:
 Options:
     -f fmt|--format=fmt  Output file format, one of {supported_formats}
     -w|--write   Write to files
-    --caps  convert the text to upper case
 """.format(
     command=os.path.basename(sys.argv[0]),
     supported_formats=supported_formats
