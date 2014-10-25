@@ -18,7 +18,12 @@ import xlrd
 from mmap import mmap, ACCESS_READ
 
 
+VERSION = '0.0.1'
 supported_formats=['tsv', 'yaml', 'json']
+
+
+if sys.version_info >= (3, 0, 0):
+    unicode = str
 
 
 def cell_value(cell):
@@ -142,7 +147,7 @@ if __name__ == '__main__':
     try:
         args = docopt.docopt(__doc__)
     except docopt.DocoptExit as err:
-        print err.message
+        print(err)
         sys.exit(1)
 
     if args['--help']:
