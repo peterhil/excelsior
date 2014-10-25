@@ -19,7 +19,7 @@ from mmap import mmap, ACCESS_READ
 
 
 VERSION = '0.0.1'
-supported_formats=['tsv', 'yaml', 'json']
+supported_formats=['csv', 'tsv', 'yaml', 'json']
 
 
 if sys.version_info >= (3, 0, 0):
@@ -72,6 +72,11 @@ def convert_format(sheet, fmt='tsv'):
     elif 'tsv' == fmt:
         return u'\n'.join([
             '\t'.join(map(unicode, row))
+            for row in sheet['data']
+            ])
+    elif 'csv' == fmt:
+        return u'\n'.join([
+            ', '.join(map(lambda s: '"' + unicode(s).replace('"', '""') + '"', row))
             for row in sheet['data']
             ])
     else:
