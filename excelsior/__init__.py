@@ -31,7 +31,7 @@ def cell_value(cell):
     if 'empty' == ctype:
         return u''
     elif 'text' == ctype:
-        return unicode(value[2:-1])
+        return unicode(value[1:-1]) if sys.version_info >= (3, 0, 0) else unicode(value[2:-1])
     elif 'number' == ctype:
         if float(value) % 1 == 0:
             return int(float(value))
