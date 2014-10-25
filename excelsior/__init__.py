@@ -18,7 +18,6 @@ import xlrd
 from mmap import mmap, ACCESS_READ
 
 
-VERSION = '0.0.1'
 supported_formats=['csv', 'tsv', 'yaml', 'json']
 
 

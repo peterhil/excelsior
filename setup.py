@@ -15,11 +15,9 @@ import sys
 from distutils.core import setup, Command
 from pip.req import parse_requirements
 
-from excelsior import VERSION
-
 
 PACKAGE_NAME = 'excelsior'
-PACKAGE_VERSION = VERSION
+PACKAGE_VERSION = '0.0.1'
 PACKAGES = ['excelsior']
 INSTALL_REQS = [str(ir.req) for ir in parse_requirements('requirements.pip')]
 
