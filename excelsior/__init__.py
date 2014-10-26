@@ -65,9 +65,9 @@ def read_data(xls):
 
 def convert_format(sheet, fmt='tsv'):
     if 'yaml' == fmt:
-        return yaml.dump(data)
+        return yaml.dump(sheet)
     elif 'json' == fmt:
-        return json.dumps(data, indent=4)
+        return json.dumps(sheet, indent=4)
     elif 'tsv' == fmt:
         return u'\n'.join([
             '\t'.join(map(unicode, row))
