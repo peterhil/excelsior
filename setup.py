@@ -10,38 +10,39 @@
 from __future__ import with_statement
 
 
-import sys
-
 from setuptools import setup
-from pip.req import parse_requirements
 
 
 PACKAGE_NAME = 'excelsior'
-PACKAGE_VERSION = '0.0.3'
+PACKAGE_VERSION = '0.0.4'
 PACKAGES = ['excelsior']
-INSTALL_REQS = [str(ir.req) for ir in parse_requirements('requirements.pip')]
 
+def striplines(lines):
+    return [line.strip() for line in lines]
 
-with open('README.md', 'r') as readme:
-    README_TEXT = readme.read()
+with open('requirements.pip', 'rb') as reqs:
+    install_requires = list(filter(None, striplines(reqs.readlines())))
+
+with open('README.rst', 'rb') as readme:
+    long_description = "\n" + readme.read()
 
 
 setup(
     name=PACKAGE_NAME,
     version=PACKAGE_VERSION,
     packages=PACKAGES,
-    requires = [],
-    install_requires=INSTALL_REQS,
+    requires=[],
+    install_requires=install_requires,
     scripts=['bin/excelsior'],
 
-    description="Excelsior is a conversion tool for Excel spreadsheets",
-    long_description=README_TEXT,
+    description="Convert Excel spreadsheets into TSV, CSV, Json or Yaml format.",
+    long_description=long_description,
     author='Peter Hillerström',
     author_email='peter.hillerstrom@gmail.com',
-    license='BSD License',
+    license="BSD License",
     url='https://github.com/peterhil/excelsior',
 
-    classifiers = [
+    classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Intended Audience :: Developers',
