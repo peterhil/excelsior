@@ -14,12 +14,16 @@ Supported output formats are `tab separated values
 values (.csv) <https://en.wikipedia.org/wiki/Comma-separated_values>`_,
 Yaml and JSON.
 
+For TSV and CSV output, uses the Python csv module from the standard library.
+
+
 Installation
 ============
 
 .. code-block:: bash
 
     $ pip install excelsior
+
 
 Usage
 =====
