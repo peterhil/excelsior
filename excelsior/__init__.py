@@ -7,6 +7,7 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
+import csv
 import docopt
 import json
 import os
@@ -68,16 +69,6 @@ def convert_format(sheet, fmt='tsv'):
         return yaml.dump(sheet)
     elif 'json' == fmt:
         return json.dumps(sheet, indent=4)
-    elif 'tsv' == fmt:
-        return u'\n'.join([
-            '\t'.join(map(unicode, row))
-            for row in sheet['data']
-            ])
-    elif 'csv' == fmt:
-        return u'\n'.join([
-            ', '.join(map(lambda s: '"' + unicode(s).replace('"', '""') + '"', row))
-            for row in sheet['data']
-            ])
     else:
         err_message = 'Unsupported format: {}'.format(fmt)
         raise ValueError(err_message)
@@ -94,6 +85,16 @@ def write_file(data, outfile):
         f.write(data)
         sys.stderr.write('{}: written'.format(outfile))
 
+def write_csv(sheet, outfile, fmt='tsv'):
+    dialect = 'excel-tab' if fmt == 'tsv' else 'excel'
+    if outfile == sys.stdout:
+        writer = csv.writer(outfile, dialect=dialect)
+        writer.writerows(sheet['data'])
+    else:
+        with open(outfile, 'wb') as f:
+            writer = csv.writer(f, dialect=dialect)
+            writer.writerows(sheet['data'])
+            sys.stderr.write('{}: written'.format(outfile))
 
 def convert(excel_file, fmt='tsv', output='print'):
     try:
@@ -111,13 +112,19 @@ def convert(excel_file, fmt='tsv', output='print'):
                     if idx != 0:
                         sys.stdout.write(u'\x0c\n')
                     sys.stdout.write(u'# {} #\n'.format(sheet['name']))
-                sys.stdout.write(convert_format(sheet, fmt=fmt))
+                if fmt in ['tsv', 'csv']:
+                    write_csv(sheet, sys.stdout, fmt)
+                else:
+                    sys.stdout.write(convert_format(sheet, fmt=fmt))
             else:
                 if len(data['sheets']) > 1:
                     outfile = path + '-' + sheet['name'] + '.' + fmt
                 else:
                     outfile = path + '.' + fmt
-                write_file(convert_format(sheet, fmt=fmt), outfile)
+                if fmt in ['tsv', 'csv']:
+                    write_csv(sheet, outfile, fmt)
+                else:
+                    write_file(convert_format(sheet, fmt=fmt), outfile)
             sys.stdout.write('\n')
 
     except xlrd.biffh.XLRDError as err:
